@@ -12,7 +12,7 @@ $ composer require aron/laravel-api-response
 
 2. 使用
 ``` php
-use use Aron\Response\Traits\ResponseTrait;
+use Aron\Response\Traits\ResponseTrait;
 
 $this->response($data = [],
        $code,
