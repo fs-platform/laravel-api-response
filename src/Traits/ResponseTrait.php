@@ -87,7 +87,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:43 下午
      */
-    public function forbidden($message): JsonResponse
+    public function forbidden($message = '403 Forbidden'): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_FORBIDDEN, $message);
     }
