@@ -150,17 +150,18 @@ trait ResponseTrait
     }
 
     /**
-     * @Notes: 请求格式正确，但是由于含有语义错误，无法响应。
+     * @Notes: 请求格式正确，但是由于含有语义错误，无法响应
      *
-     * @param $message
+     * @param array $errors
+     * @param string $message
      * @return JsonResponse
      * @author: Aron
      * @Date: 2021/4/15
-     * @Time: 10:13 上午
+     * @Time: 11:50 上午
      */
-    public function unprocessable($message = ''): JsonResponse
+    public function unprocessable(array $errors = [], string $message = ''): JsonResponse
     {
-        return $this->failed(FoundationResponse::HTTP_UNPROCESSABLE_ENTITY, $message);
+        return $this->failed(FoundationResponse::HTTP_UNPROCESSABLE_ENTITY, $message, $errors);
     }
 
     /**
