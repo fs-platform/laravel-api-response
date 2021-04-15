@@ -91,4 +91,12 @@ class ApiResponseTest extends TestCase
         $this->assertEquals(200, $response->status());
         $this->assertJsonStringEqualsJsonString($json, $response->content());
     }
+
+    public function testUnprocessable(): void
+    {
+        $response = $this->unprocessable();
+        $json = '{"status":"error","code":422,"message":"","data":[],"errors":[]}';
+        $this->assertEquals(422, $response->status());
+        $this->assertJsonStringEqualsJsonString($json, $response->content());
+    }
 }

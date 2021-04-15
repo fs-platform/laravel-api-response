@@ -43,7 +43,8 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse {
+    ): JsonResponse
+    {
         return $this->response([], $code, self::$errorStatus, $message, $errors, $headers);
     }
 
@@ -143,9 +144,23 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:47 下午
      */
-    public function notAllow($message): JsonResponse
+    public function notAllow($message = ''): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_METHOD_NOT_ALLOWED, $message);
+    }
+
+    /**
+     * @Notes: 请求格式正确，但是由于含有语义错误，无法响应。
+     *
+     * @param $message
+     * @return JsonResponse
+     * @author: Aron
+     * @Date: 2021/4/15
+     * @Time: 10:13 上午
+     */
+    public function unprocessable($message = ''): JsonResponse
+    {
+        return $this->failed(FoundationResponse::HTTP_UNPROCESSABLE_ENTITY, $message);
     }
 
     /**
@@ -183,7 +198,8 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse {
+    ): JsonResponse
+    {
         $status = $status ?: self::$successStatus;
         $data = $this->format($status, $code, $data, $message, $errors);
         return response()->json($data, $code, $headers);
@@ -209,7 +225,8 @@ trait ResponseTrait
         array $data = [],
         string $message = "",
         $errors = []
-    ): array {
+    ): array
+    {
         $status = $status ?: self::$successStatus;
         return compact(
             'status',
