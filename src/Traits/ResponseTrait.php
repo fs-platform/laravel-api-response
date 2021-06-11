@@ -237,4 +237,23 @@ trait ResponseTrait
             'errors'
         );
     }
+
+    /**
+     * @Notes: punchout 回调地址返回
+     *
+     * @param string $url
+     * @return JsonResponse
+     * @author: Aron
+     * @Date: 2021/6/11
+     * @Time: 7:14 下午
+     */
+    public function Gwt(string $url): JsonResponse
+    {
+        $data = [
+            'GWTSSO' => [
+                'LoggedInURL' => $url
+            ]
+        ];
+        return response()->json($data, FoundationResponse::HTTP_OK, []);
+    }
 }
