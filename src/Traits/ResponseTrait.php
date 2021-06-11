@@ -256,4 +256,27 @@ trait ResponseTrait
         ];
         return response()->json($data, FoundationResponse::HTTP_OK, []);
     }
+
+    /**
+     * @Notes: 封装返回token
+     *
+     * @param $token
+     * @return JsonResponse
+     * @author: Aron
+     * @Date: 2021/6/11
+     * @Time: 11:28 下午
+     */
+    public function respondWithToken($token): JsonResponse
+    {
+        //token过期时间 默认JWT_TTL 60m 转换为s返回
+        try {
+            $expires_in = auth()->factory()->getTTL() * 60;
+            return $this->response([
+                'access_token' => 'Bearer ' . $token,
+                'expires_in' => $expires_in
+            ]);
+        } catch (\Throwable $e) {
+            return $this->internalError();
+        }
+    }
 }
