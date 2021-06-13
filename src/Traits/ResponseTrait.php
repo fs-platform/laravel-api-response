@@ -43,8 +43,7 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->response([], $code, self::$errorStatus, $message, $errors, $headers);
     }
 
@@ -199,8 +198,7 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $status = $status ?: self::$successStatus;
         $data = $this->format($status, $code, $data, $message, $errors);
         return response()->json($data, $code, $headers);
@@ -226,8 +224,7 @@ trait ResponseTrait
         array $data = [],
         string $message = "",
         $errors = []
-    ): array
-    {
+    ): array {
         $status = $status ?: self::$successStatus;
         return compact(
             'status',
@@ -258,22 +255,24 @@ trait ResponseTrait
     }
 
     /**
-     * @Notes: 封装返回token
+     * @Notes: 封装返回generate token
      *
-     * @param $token
+     * @param string $token
+     * @param array $param
      * @return JsonResponse
      * @author: Aron
-     * @Date: 2021/6/11
-     * @Time: 11:28 下午
+     * @Date: 2021/6/13
+     * @Time: 5:30 下午
      */
-    public function respondWithToken($token): JsonResponse
+    public function respondWithToken(string $token, array $param = []): JsonResponse
     {
         //token过期时间 默认JWT_TTL 60m 转换为s返回
         try {
             $expires_in = auth()->factory()->getTTL() * 60;
             return $this->response([
                 'access_token' => 'Bearer ' . $token,
-                'expires_in' => $expires_in
+                'expires_in' => $expires_in,
+                ...$param
             ]);
         } catch (\Throwable $e) {
             return $this->internalError();
