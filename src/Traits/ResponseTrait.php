@@ -43,7 +43,8 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse {
+    ): JsonResponse
+    {
         return $this->response([], $code, self::$errorStatus, $message, $errors, $headers);
     }
 
@@ -198,7 +199,8 @@ trait ResponseTrait
         string $message = '',
         array $errors = [],
         array $headers = []
-    ): JsonResponse {
+    ): JsonResponse
+    {
         $status = $status ?: self::$successStatus;
         $data = $this->format($status, $code, $data, $message, $errors);
         return response()->json($data, $code, $headers);
@@ -224,7 +226,8 @@ trait ResponseTrait
         array $data = [],
         string $message = "",
         $errors = []
-    ): array {
+    ): array
+    {
         $status = $status ?: self::$successStatus;
         return compact(
             'status',
@@ -270,10 +273,9 @@ trait ResponseTrait
         try {
             $expires_in = auth()->factory()->getTTL() * 60;
             return $this->response([
-                'access_token' => 'Bearer ' . $token,
-                'expires_in' => $expires_in,
-                ...$param
-            ]);
+                    'access_token' => 'Bearer ' . $token,
+                    'expires_in' => $expires_in,
+                ] + $param);
         } catch (\Throwable $e) {
             return $this->internalError();
         }
