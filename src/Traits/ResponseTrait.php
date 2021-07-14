@@ -58,7 +58,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:36 下午
      */
-    public function notFound($message = 'Not Found'): JsonResponse
+    public function notFound(string $message = 'Not Found'): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_NOT_FOUND, $message);
     }
@@ -72,7 +72,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:35 下午
      */
-    public function internalError($message = "Internal Error!"): JsonResponse
+    public function internalError(string $message = "Internal Error!"): JsonResponse
     {
 
         return $this->failed(FoundationResponse::HTTP_INTERNAL_SERVER_ERROR, $message);
@@ -88,7 +88,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:43 下午
      */
-    public function forbidden($message = '403 Forbidden'): JsonResponse
+    public function forbidden(string $message = '403 Forbidden'): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_FORBIDDEN, $message);
     }
@@ -102,7 +102,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:38 下午
      */
-    public function unauthorized($message = ''): JsonResponse
+    public function unauthorized(string $message = ''): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_UNAUTHORIZED, $message);
     }
@@ -116,7 +116,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:42 下午
      */
-    public function conflict($message = ''): JsonResponse
+    public function conflict(string $message = ''): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_CONFLICT, $message);
     }
@@ -130,7 +130,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:45 下午
      */
-    public function badRequest($message = ''): JsonResponse
+    public function badRequest(string $message = ''): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_BAD_REQUEST, $message);
     }
@@ -144,7 +144,7 @@ trait ResponseTrait
      * @Date: 2021/3/17
      * @Time: 3:47 下午
      */
-    public function notAllow($message = ''): JsonResponse
+    public function notAllow(string $message = ''): JsonResponse
     {
         return $this->failed(FoundationResponse::HTTP_METHOD_NOT_ALLOWED, $message);
     }
@@ -211,7 +211,7 @@ trait ResponseTrait
      * @Notes: 格式化数据返回信息
      *
      * @param array $data
-     * @param int $status
+     * @param string $status
      * @param int $code
      * @param string $message
      * @param mixed $errors
@@ -279,5 +279,19 @@ trait ResponseTrait
         } catch (\Throwable $e) {
             return $this->internalError();
         }
+    }
+
+    /**
+     * Notes: 请求次数过多
+     *
+     * author: Aron.Yao
+     * Date: 2021/7/14
+     * Time: 11:17 上午
+     * @param string $message
+     * @return JsonResponse
+     */
+    public function manyRequest(string $message = 'Too Many Attempts'): JsonResponse
+    {
+        return $this->failed(FoundationResponse::HTTP_TOO_MANY_REQUESTS, $message);
     }
 }
